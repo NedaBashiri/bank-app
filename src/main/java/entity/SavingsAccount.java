@@ -39,7 +39,7 @@ public class SavingsAccount extends BankAccount implements Interest {
     }
 
     @Override
-    public void withdraw(double amount) {
+    public synchronized void withdraw(double amount) {
         if (validateNonNegativeAmount(amount) && validateMinimumBalance(amount)) {
             super.withdraw(amount);
         }

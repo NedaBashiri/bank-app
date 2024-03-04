@@ -25,7 +25,7 @@ public class CheckingAccount extends BankAccount implements Fees {
     }
 
     @Override
-    public void deposit(double amount) {
+    public synchronized void deposit(double amount) {
         if (validateNonNegativeAmount(amount)) {
             Transaction newDeposit = new Transaction(TransactionType.DEPOSIT, new Date(), amount);
             transactionList.add(newDeposit);
@@ -35,7 +35,7 @@ public class CheckingAccount extends BankAccount implements Fees {
     }
 
     @Override
-    public void withdraw(double amount) {
+    public synchronized void withdraw(double amount) {
         double amountWithFee = amount + calculateTransactionFee(amount);
 
         if (validateOverdraftLimit(amountWithFee)) {

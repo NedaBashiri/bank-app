@@ -33,14 +33,14 @@ public abstract class BankAccount implements Serializable {
         return accountHolderName;
     }
 
-    public void deposit(double amount) {
+    public synchronized void deposit(double amount) {
         if (validateNonNegativeAmount(amount)) {
             balance += amount;
             System.out.println("deposit successfully.");
         }
     }
 
-    public void withdraw(double amount) {
+    public synchronized void withdraw(double amount) {
         if (validateNonNegativeAmount(amount) && validationSufficientFunds(amount)) {
             balance -= amount;
             System.out.println("Withdraw successfully.");
