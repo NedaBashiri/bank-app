@@ -3,12 +3,16 @@ package entity;
 import exception.InsufficientFundsException;
 
 import java.io.Serializable;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class BankAccount implements Serializable {
 
     private String accountNumber;
     private String accountHolderName;
     private double balance;
+
+    private Lock lock = new ReentrantLock();
 
     public BankAccount() {
     }
@@ -34,17 +38,31 @@ public abstract class BankAccount implements Serializable {
     }
 
     public synchronized void deposit(double amount) {
-        if (validateNonNegativeAmount(amount)) {
-            balance += amount;
-            System.out.println("deposit successfully.");
+
+        lock.lock();
+        try {
+            if (validateNonNegativeAmount(amount)) {
+                balance += amount;
+                System.out.println("deposit successfully.");
+            }
+        } finally {
+            lock.unlock();
         }
+
     }
 
     public synchronized void withdraw(double amount) {
-        if (validateNonNegativeAmount(amount) && validationSufficientFunds(amount)) {
-            balance -= amount;
-            System.out.println("Withdraw successfully.");
+
+        lock.lock();
+        try {
+            if (validateNonNegativeAmount(amount) && validationSufficientFunds(amount)) {
+                balance -= amount;
+                System.out.println("Withdraw successfully.");
+            }
+        } finally {
+            lock.unlock();
         }
+
     }
 
     protected boolean validateNonNegativeAmount(double amount) {
