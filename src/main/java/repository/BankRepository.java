@@ -3,14 +3,19 @@ package repository;
 import entity.BankAccount;
 
 import java.util.List;
+import java.util.Map;
 
-public interface BankRepository {
+public interface BankRepository<T extends BankAccount> {
 
-    void addAccount(BankAccount account);
+    void addAccount(T account);
 
     void removeAccount(String accountNumber);
 
     BankAccount findAccount(String accountNumber);
 
-    List<BankAccount> listAccounts();
+    List<T> listAccounts();
+
+    Map<String, T> getAccounts();
+
+    BankData<T> setAccounts(Map<String, T> accounts);
 }

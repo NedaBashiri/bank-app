@@ -5,7 +5,25 @@ import entity.BankAccount;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BankData {
+public final class BankData <T extends BankAccount> {
 
-    public static Map<String, BankAccount> accounts = new HashMap<>();
+    private Map<String, T> accounts = new HashMap<>();
+
+    private static BankData bankData = new BankData();
+
+    private BankData() {
+    }
+
+    public static BankData getBankData(){
+        return bankData;
+    }
+
+    public Map<String, T> getAccounts() {
+        return accounts;
+    }
+
+    public BankData<T> setAccounts(Map<String, T> accounts) {
+        this.accounts = accounts;
+        return this;
+    }
 }

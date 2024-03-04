@@ -5,15 +5,15 @@ import interfaces.IFileIO;
 
 import java.util.List;
 
-public interface BankService extends IFileIO {
+public interface BankService<T extends BankAccount> extends IFileIO {
 
-    void addAccount(BankAccount account);
+    void addAccount(T account);
 
     void removeAccount(String accountNumber);
 
-    BankAccount findAccount(String accountNumber);
+    T findAccount(String accountNumber);
 
-    List<BankAccount> listAccounts();
+    List<T> listAccounts();
 
 
 }

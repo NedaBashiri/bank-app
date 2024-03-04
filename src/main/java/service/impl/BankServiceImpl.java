@@ -6,12 +6,11 @@ import repository.impl.BankRepositoryImpl;
 import service.BankService;
 
 import java.io.*;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static repository.BankData.accounts;
 
-public class BankServiceImpl implements BankService {
+public class BankServiceImpl<T extends BankAccount> implements BankService<T> {
 
     private final String FILE_NAME = "accounts.txt";
 
@@ -27,7 +26,7 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public void addAccount(BankAccount account) {
+    public void addAccount(T account) {
         if (account == null) {
             throw new NullPointerException("account is null.");
         }
@@ -45,12 +44,12 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public BankAccount findAccount(String accountNumber) {
-        return bankRepository.findAccount(accountNumber);
+    public T findAccount(String accountNumber) {
+        return (T) bankRepository.findAccount(accountNumber);
     }
 
     @Override
-    public List<BankAccount> listAccounts() {
+    public List<T> listAccounts() {
         return bankRepository.listAccounts();
     }
 
@@ -58,18 +57,19 @@ public class BankServiceImpl implements BankService {
     public void saveAccountsToFile() {
         try (FileOutputStream fileOut = new FileOutputStream(FILE_NAME);
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
-            objectOut.writeObject(accounts);
+            objectOut.writeObject(bankRepository.getAccounts());
             System.out.println("Accounts data has been saved to " + FILE_NAME);
         } catch (IOException e) {
             System.err.println("Error saving accounts data to file: " + e.getMessage());
         }
     }
 
+
     @Override
     public void loadAccountsFromFile() {
         try (FileInputStream fileIn = new FileInputStream(FILE_NAME);
              ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
-            accounts = (HashMap<String, BankAccount>) objectIn.readObject();
+            bankRepository.setAccounts((Map<String, T>) objectIn.readObject());
             System.out.println("Accounts data has been loaded from " + FILE_NAME);
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Error loading accounts data from file: " + e.getMessage());
