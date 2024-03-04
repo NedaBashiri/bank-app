@@ -1,6 +1,7 @@
 package service.impl;
 
 import entity.BankAccount;
+import entity.SavingsAccount;
 import repository.BankRepository;
 import repository.impl.BankRepositoryImpl;
 import service.BankService;
@@ -51,6 +52,25 @@ public class BankServiceImpl<T extends BankAccount> implements BankService<T> {
     @Override
     public List<T> listAccounts() {
         return bankRepository.listAccounts();
+    }
+
+    @Override
+    public double getTotalBalanceOfAccountsWithBalanceAbove( double threshold) {
+        List<BankAccount> accounts = bankRepository.listAccounts();
+        return accounts.stream()
+                .filter(account -> account.getBalance() > threshold)
+                .mapToDouble(BankAccount::getBalance)
+                .sum();
+    }
+
+    @Override
+    public void applyInterestToAllSavingsAccounts() {
+        List<BankAccount> accounts = bankRepository.listAccounts();
+        accounts.stream()
+                .filter(account -> account instanceof SavingsAccount)
+                .forEach(account -> {
+                    ((SavingsAccount) account).applyInterest();
+                });
     }
 
     @Override

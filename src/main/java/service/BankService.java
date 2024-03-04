@@ -15,5 +15,9 @@ public interface BankService<T extends BankAccount> extends IFileIO {
 
     List<T> listAccounts();
 
+    double getTotalBalanceOfAccountsWithBalanceAbove(double threshold);
+
+    void applyInterestToAllSavingsAccounts();
+
 
 }
