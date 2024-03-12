@@ -3,14 +3,25 @@ package entity;
 import enums.AccountType;
 import validate.ValidationAccount;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@DiscriminatorColumn(name = "type")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class BankAccount implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "account_number",unique = true)
     private String accountNumber;
+    @Column(name = "account_holder_name")
     private String accountHolderName;
+    @Column(name = "balance")
     private double balance;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "type", insertable = false, updatable = false)
     private AccountType accountType;
 
     public BankAccount() {

@@ -5,6 +5,11 @@ import enums.AccountType;
 import exception.InvalidTransactionException;
 import interfaces.Interest;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("SAVINGS_ACCOUNT")
 public class SavingsAccount extends BankAccount{
 
     private static transient double interestRate = 0.2;
