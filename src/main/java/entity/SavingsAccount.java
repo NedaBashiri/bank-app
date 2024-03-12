@@ -1,6 +1,7 @@
 package entity;
 
 
+import enums.AccountType;
 import exception.InvalidTransactionException;
 import interfaces.Interest;
 
@@ -13,9 +14,8 @@ public class SavingsAccount extends BankAccount{
     }
 
     public SavingsAccount(String accountNumber, String accountHolderName, double balance) {
-        super(accountNumber, accountHolderName, balance);
+        super(accountNumber, accountHolderName, balance, AccountType.SAVINGS_ACCOUNT);
     }
-
 
     public double getInterestRate() {
         return interestRate;

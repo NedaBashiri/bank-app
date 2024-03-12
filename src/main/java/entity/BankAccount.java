@@ -1,5 +1,7 @@
 package entity;
 
+import enums.AccountType;
+
 import java.io.Serializable;
 
 public abstract class BankAccount implements Serializable {

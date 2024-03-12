@@ -1,6 +1,8 @@
 package entity;
 
 
+import enums.AccountType;
+
 public class CheckingAccount extends BankAccount{
 
     private double overdraftLimit = 1000;
