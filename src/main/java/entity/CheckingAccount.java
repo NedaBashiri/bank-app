@@ -3,6 +3,11 @@ package entity;
 
 import enums.AccountType;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("CHECKING_ACCOUNT")
 public class CheckingAccount extends BankAccount{
 
     private double overdraftLimit = 1000;

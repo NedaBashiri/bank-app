@@ -2,21 +2,30 @@ package entity;
 
 import enums.TransactionType;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
+@Entity
 public class Transaction implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "transaction_type")
     private TransactionType transactionType;
 
+    @Column(name = "transaction_date")
     private Date transactionDate;
 
+    @Column(name = "amount")
     private double amount;
 
+    @Column(name = "fee")
     private double fee;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
     private BankAccount bankAccount;
 
     public Transaction() {
