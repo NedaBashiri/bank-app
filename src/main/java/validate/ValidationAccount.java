@@ -1,9 +1,9 @@
 package validate;
 
 
-import ir.fanapCampus.entity.BankAccount;
-import ir.fanapCampus.exception.InsufficientFundsException;
-import ir.fanapCampus.exception.InvalidBankAccountException;
+import entity.BankAccount;
+import exception.InsufficientFundsException;
+import exception.InvalidBankAccountException;
 
 public class ValidationAccount {
 

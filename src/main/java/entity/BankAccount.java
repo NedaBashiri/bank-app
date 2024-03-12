@@ -1,6 +1,7 @@
 package entity;
 
 import enums.AccountType;
+import validate.ValidationAccount;
 
 import java.io.Serializable;
 
