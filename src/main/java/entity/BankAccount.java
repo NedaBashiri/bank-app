@@ -1,28 +1,34 @@
 package entity;
 
-import exception.InsufficientFundsException;
-
 import java.io.Serializable;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class BankAccount implements Serializable {
 
+    private Long id;
     private String accountNumber;
     private String accountHolderName;
     private double balance;
-
-    private Lock lock = new ReentrantLock();
+    private AccountType accountType;
 
     public BankAccount() {
+
     }
 
-    public BankAccount(String accountNumber, String accountHolderName, double newBalance) {
+    public BankAccount(String accountNumber, String accountHolderName, double newBalance, AccountType accountType) {
+        this();
+        ValidationAccount.validateNonNegativeAmount(newBalance);
         this.accountNumber = accountNumber;
         this.accountHolderName = accountHolderName;
-        if (validateNonNegativeAmount(newBalance)) {
-            this.balance += newBalance;
-        }
+        this.accountType = accountType;
+        this.balance += newBalance;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getBalance() {
@@ -37,46 +43,37 @@ public abstract class BankAccount implements Serializable {
         return accountHolderName;
     }
 
-    public synchronized void deposit(double amount) {
-
-        lock.lock();
-        try {
-            if (validateNonNegativeAmount(amount)) {
-                balance += amount;
-                System.out.println("deposit successfully.");
-            }
-        } finally {
-            lock.unlock();
-        }
-
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
-    public synchronized void withdraw(double amount) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        lock.lock();
-        try {
-            if (validateNonNegativeAmount(amount) && validationSufficientFunds(amount)) {
-                balance -= amount;
-                System.out.println("Withdraw successfully.");
-            }
-        } finally {
-            lock.unlock();
-        }
+        BankAccount that = (BankAccount) o;
 
+        if (Double.compare(that.balance, balance) != 0) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (accountNumber != null ? !accountNumber.equals(that.accountNumber) : that.accountNumber != null)
+            return false;
+        if (accountHolderName != null ? !accountHolderName.equals(that.accountHolderName) : that.accountHolderName != null)
+            return false;
+        return accountType == that.accountType;
     }
 
-    protected boolean validateNonNegativeAmount(double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative.");
-        }
-        return true;
-    }
-
-    protected boolean validationSufficientFunds(double amount) {
-        if (amount > balance) {
-            throw new InsufficientFundsException("Insufficient funds.");
-        }
-        return true;
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (accountNumber != null ? accountNumber.hashCode() : 0);
+        result = 31 * result + (accountHolderName != null ? accountHolderName.hashCode() : 0);
+        temp = Double.doubleToLongBits(balance);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (accountType != null ? accountType.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -85,6 +82,6 @@ public abstract class BankAccount implements Serializable {
                 "accountNumber='" + accountNumber + '\'' +
                 ", accountHolderName='" + accountHolderName + '\'' +
                 ", balance=" + balance +
-                '}';
+                '}'+ "\n";
     }
 }

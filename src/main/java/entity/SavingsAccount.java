@@ -4,10 +4,13 @@ package entity;
 import exception.InvalidTransactionException;
 import interfaces.Interest;
 
-public class SavingsAccount extends BankAccount implements Interest {
+public class SavingsAccount extends BankAccount{
 
     private static transient double interestRate = 0.2;
     private static transient double minimumBalance = 50.0;
+
+    public SavingsAccount() {
+    }
 
     public SavingsAccount(String accountNumber, String accountHolderName, double balance) {
         super(accountNumber, accountHolderName, balance);
@@ -18,37 +21,16 @@ public class SavingsAccount extends BankAccount implements Interest {
         return interestRate;
     }
 
-    public SavingsAccount setInterestRate(double interestRate) {
+    public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
-        return this;
     }
 
     public double getMinimumBalance() {
         return minimumBalance;
     }
 
-    public SavingsAccount setMinimumBalance(double minimumBalance) {
+    public void setMinimumBalance(double minimumBalance) {
         this.minimumBalance = minimumBalance;
-        return this;
     }
 
-    @Override
-    public void applyInterest() {
-        double interest = (interestRate / 12) * getBalance();
-        deposit(interest);
-    }
-
-    @Override
-    public synchronized void withdraw(double amount) {
-        if (validateNonNegativeAmount(amount) && validateMinimumBalance(amount)) {
-            super.withdraw(amount);
-        }
-    }
-
-    private boolean validateMinimumBalance(double amount) {
-        if (getBalance() -amount < minimumBalance) {
-            throw new InvalidTransactionException("Withdrawal amount exceeds minimum balance.");
-        }
-        return true;
-    }
 }
