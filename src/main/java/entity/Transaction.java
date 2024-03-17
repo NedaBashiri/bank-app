@@ -1,12 +1,13 @@
 package entity;
 
+import base.entity.BaseEntity;
 import enums.TransactionType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 @Entity
-public class Transaction implements Serializable {
+public class Transaction extends BaseEntity<Long> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
