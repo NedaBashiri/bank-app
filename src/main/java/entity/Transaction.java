@@ -25,7 +25,7 @@ public class Transaction extends BaseEntity<Long> implements Serializable {
     @Column(name = "fee")
     private double fee;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "account_id")
     private BankAccount bankAccount;
 
