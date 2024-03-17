@@ -17,14 +17,14 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 
-public class BankAccountServiceImpl<T extends BankAccount> extends BaseServiceImpl<T> implements BankAccountService<T> {
+public class BankAccountServiceImpl<T extends BankAccount> extends BaseServiceImpl<T,Long,BankAccountRepository<T>> implements BankAccountService<T> {
 
     protected final Lock lock = new ReentrantLock();
     protected BankAccountRepository<T> bankRepository;
     protected TransactionService transactionService;
 
-    public BankAccountServiceImpl(BaseRepository<T> baseRepository, BankAccountRepository<T> bankRepository, TransactionService transactionService) {
-        super(baseRepository);
+    public BankAccountServiceImpl( BankAccountRepository<T> bankRepository, TransactionService transactionService) {
+        super(bankRepository);
         this.bankRepository = bankRepository;
         this.transactionService = transactionService;
     }

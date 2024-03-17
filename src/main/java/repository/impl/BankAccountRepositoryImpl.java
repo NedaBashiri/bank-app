@@ -3,6 +3,8 @@ package repository.impl;
 import base.repository.impl.BaseRepositoryImpl;
 import entity.BankAccount;
 import repository.BankAccountRepository;
+import shared.utilities.PersistenceUnitManager;
+import shared.utilities.PersistenceUnits;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -12,15 +14,13 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-public class BankAccountRepositoryImpl<T extends BankAccount> extends BaseRepositoryImpl<T> implements BankAccountRepository<T> {
+public class BankAccountRepositoryImpl<T extends BankAccount> extends BaseRepositoryImpl<T,Long> implements BankAccountRepository<T> {
 
-    protected final EntityManager em;
+    EntityManager em = PersistenceUnitManager.getEntityManager(PersistenceUnits.UNIT_ONE);
 
-    public BankAccountRepositoryImpl(EntityManager em) {
-        super(em);
-        this.em = em;
+    public BankAccountRepositoryImpl(Class<T> clazz) {
+        super(clazz);
     }
-
 
     @Override
     public List<BankAccount> searchAccountsWithBalanceGreaterThan(double minBalance) {

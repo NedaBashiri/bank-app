@@ -3,6 +3,8 @@ package repository.impl;
 import base.repository.impl.BaseRepositoryImpl;
 import entity.Transaction;
 import repository.TransactionRepository;
+import shared.utilities.PersistenceUnitManager;
+import shared.utilities.PersistenceUnits;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -13,17 +15,11 @@ import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
 
-public class TransactionRepositoryImpl extends BaseRepositoryImpl<Transaction> implements TransactionRepository {
-    private EntityManager em;
+public class TransactionRepositoryImpl extends BaseRepositoryImpl<Transaction, Long> implements TransactionRepository {
+    EntityManager em = PersistenceUnitManager.getEntityManager(PersistenceUnits.UNIT_ONE);
 
-    public TransactionRepositoryImpl(EntityManager em) {
-        super(em);
-        this.em = em;
-    }
-
-    @Override
-    public List<Transaction> findAll() {
-        return em.createQuery("SELECT t FROM Transaction t", Transaction.class).getResultList();
+    public TransactionRepositoryImpl(Class<Transaction> clazz) {
+        super(clazz);
     }
 
     @Override
@@ -41,10 +37,6 @@ public class TransactionRepositoryImpl extends BaseRepositoryImpl<Transaction> i
                 .getResultList();
     }
 
-    @Override
-    public void save(Transaction transaction) {
-        em.persist(transaction);
-    }
 
     @Override
     public List<Transaction> searchTransactionsInTimeInterval(Date startDate, Date endDate) {
@@ -61,3 +53,4 @@ public class TransactionRepositoryImpl extends BaseRepositoryImpl<Transaction> i
     }
 
 }
+

@@ -6,7 +6,7 @@ import entity.BankAccount;
 import java.util.List;
 import java.util.Optional;
 
-public interface BankAccountRepository<T extends BankAccount> extends BaseRepository<T> {
+public interface BankAccountRepository<T extends BankAccount> extends BaseRepository<T,Long> {
 
     List<BankAccount> searchAccountsWithBalanceGreaterThan(double minBalance);
 

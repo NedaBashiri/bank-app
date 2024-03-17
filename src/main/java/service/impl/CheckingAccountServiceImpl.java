@@ -15,8 +15,8 @@ import java.util.Date;
 public class CheckingAccountServiceImpl extends BankAccountServiceImpl<CheckingAccount>
         implements CheckingAccountService {
 
-    public CheckingAccountServiceImpl(BaseRepository<CheckingAccount> baseRepository, BankAccountRepository<CheckingAccount> bankRepository, TransactionService transactionService) {
-        super(baseRepository, bankRepository, transactionService);
+    public CheckingAccountServiceImpl(BankAccountRepository<CheckingAccount> bankRepository, TransactionService transactionService) {
+        super(bankRepository, transactionService);
     }
 
     @Override

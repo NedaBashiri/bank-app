@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public interface BankAccountService<T extends BankAccount> extends BaseService<T> {
+public interface BankAccountService<T extends BankAccount> extends BaseService<T,Long> {
 
     void deposit(T account, double amount);
 

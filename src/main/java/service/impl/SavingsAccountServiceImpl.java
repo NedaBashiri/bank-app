@@ -15,8 +15,8 @@ import java.util.concurrent.Executors;
 
 public class SavingsAccountServiceImpl extends BankAccountServiceImpl<SavingsAccount> implements SavingsAccountService {
 
-    public SavingsAccountServiceImpl(BaseRepository<SavingsAccount> baseRepository, BankAccountRepository<SavingsAccount> bankRepository, TransactionService transactionService) {
-        super(baseRepository, bankRepository, transactionService);
+    public SavingsAccountServiceImpl(BankAccountRepository<SavingsAccount> bankRepository, TransactionService transactionService) {
+        super(bankRepository, transactionService);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SavingsAccountServiceImpl extends BankAccountServiceImpl<SavingsAcc
             return;
         }
 
-        List<SavingsAccount> accounts = bankRepository.findAll(SavingsAccount.class);
+        List<SavingsAccount> accounts = bankRepository.findAll();
 
         ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
 
@@ -71,7 +71,7 @@ public class SavingsAccountServiceImpl extends BankAccountServiceImpl<SavingsAcc
     }
 
     private void applyInterestSequentially() {
-        List<SavingsAccount> accounts = bankRepository.findAll(SavingsAccount.class);
+        List<SavingsAccount> accounts = bankRepository.findAll();
         accounts.stream().forEach(this::applyInterest);
     }
 
