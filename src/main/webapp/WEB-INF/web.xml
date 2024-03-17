@@ -3,4 +3,58 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <servlet>
+        <servlet-name>accountManager</servlet-name>
+        <servlet-class>controller.bank.AccountListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>accountUpdate</servlet-name>
+        <servlet-class>controller.bank.AccountUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>accountSave</servlet-name>
+        <servlet-class>controller.bank.AccountSaveServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>accountDelete</servlet-name>
+        <servlet-class>controller.bank.AccountDeleteServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>withdrawAmount</servlet-name>
+        <servlet-class>controller.bank.WithdrawServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>depositAmount</servlet-name>
+        <servlet-class>controller.bank.DepositServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>accountManager</servlet-name>
+        <url-pattern>/bank/accountList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accountUpdate</servlet-name>
+        <url-pattern>/bank/updateAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accountSave</servlet-name>
+        <url-pattern>/bank/saveAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accountDelete</servlet-name>
+        <url-pattern>/bank/deleteAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>withdrawAmount</servlet-name>
+        <url-pattern>/bank/withdrawAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>depositAmount</servlet-name>
+        <url-pattern>/bank/depositAccount</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>707</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+
 </web-app>
