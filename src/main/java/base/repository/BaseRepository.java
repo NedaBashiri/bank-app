@@ -1,17 +1,18 @@
 package base.repository;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface BaseRepository<T> {
+public interface BaseRepository<T, PK extends Serializable> {
 
-    void persist(T account);
+    void persist(T entity);
 
-    void remove(Long id);
+    void remove(PK id);
 
-    Optional<T> findById(Class<T> eClass, Long id);
+    Optional<T> findById(PK id);
 
-    List<T> findAll(Class<T> eClass);
+    List<T> findAll();
 
     void update(T eClass);
 
