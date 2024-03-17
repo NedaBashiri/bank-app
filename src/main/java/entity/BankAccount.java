@@ -1,5 +1,6 @@
 package entity;
 
+import base.entity.BaseEntity;
 import enums.AccountType;
 import validate.ValidationAccount;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @DiscriminatorColumn(name = "type")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class BankAccount implements Serializable {
+public abstract class BankAccount extends BaseEntity<Long> implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -59,6 +60,10 @@ public abstract class BankAccount implements Serializable {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
     }
 
     @Override
