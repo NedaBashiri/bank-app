@@ -15,16 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AccountDeleteServlet extends HttpServlet {
-    private BankAccountService bankAccountService;
-
-    @Override
-    public void init() throws ServletException {
-        this.bankAccountService = new BankAccountServiceImpl(new BankAccountRepositoryImpl(BankAccount.class),new TransactionServiceImpl(new TransactionRepositoryImpl(Transaction.class)));
-    }
-
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BankAccountService bankAccountService = new BankAccountServiceImpl(new BankAccountRepositoryImpl(BankAccount.class), new TransactionServiceImpl(new TransactionRepositoryImpl(Transaction.class)));
+
         try {
             bankAccountService.deleteById(BankAccount.class,Long.parseLong(req.getParameter("id")));
             resp.sendRedirect("/bank/accountList");
