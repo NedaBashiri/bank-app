@@ -19,15 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AccountSaveServlet extends HttpServlet {
-    private BankAccountService bankAccountService;
-
-    @Override
-    public void init() throws ServletException {
-        this.bankAccountService = new BankAccountServiceImpl(new BankAccountRepositoryImpl(BankAccount.class),new TransactionServiceImpl(new TransactionRepositoryImpl(Transaction.class)));
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        BankAccountService bankAccountService = new BankAccountServiceImpl(new BankAccountRepositoryImpl(BankAccount.class), new TransactionServiceImpl(new TransactionRepositoryImpl(Transaction.class)));
+
         try {
             BankAccount bankAccount = createBankAccount(req);
             bankAccountService.save(bankAccount);
