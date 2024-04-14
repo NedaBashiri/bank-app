@@ -4,6 +4,7 @@ import base.repository.BaseRepository;
 import base.service.impl.BaseServiceImpl;
 import entity.BankAccount;
 import entity.Transaction;
+import entity.User;
 import enums.TransactionType;
 import repository.BankAccountRepository;
 import service.BankAccountService;
@@ -79,5 +80,10 @@ public class BankAccountServiceImpl<T extends BankAccount> extends BaseServiceIm
     @Override
     public Optional<BankAccount> findByAccountNumber(String accountNumber) {
         return bankRepository.findByAccountNumber(accountNumber);
+    }
+
+    @Override
+    public List<BankAccount> findAccountByUser(User user) {
+        return bankRepository.findAccountByUser(user);
     }
 }
