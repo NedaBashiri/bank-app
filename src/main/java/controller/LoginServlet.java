@@ -16,7 +16,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String destPage = "Login.jsp";
+        String destPage = "/Login.jsp";
         String message = "";
         try {
             if (req.getParameter("email").equals("") || req.getParameter("password").equals("")) {
@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
                     resp.addCookie(cookie_password);
                     resp.addCookie(cookie_isUserLogin);
 
-                    destPage = "index.jsp";
+                    destPage = "/index.jsp";
                 } else {
                     message = "Wrong Password or email";
                 }
