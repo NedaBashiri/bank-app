@@ -27,6 +27,23 @@
         <servlet-name>depositAmount</servlet-name>
         <servlet-class>controller.bank.DepositServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <servlet-class>controller.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>singUp</servlet-name>
+        <servlet-class>controller.SignUpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>controller.LogOutServlet</servlet-class>
+    </servlet>
+
+    <filter>
+        <filter-name>auth</filter-name>
+        <filter-class>controller.filter.AuthFilter</filter-class>
+    </filter>
 
     <servlet-mapping>
         <servlet-name>accountManager</servlet-name>
@@ -52,6 +69,24 @@
         <servlet-name>depositAmount</servlet-name>
         <url-pattern>/bank/depositAccount</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/LogIn</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>singUp</servlet-name>
+        <url-pattern>/SignUp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>auth</filter-name>
+        <url-pattern>/bank/*</url-pattern>
+    </filter-mapping>
+
     <error-page>
         <error-code>707</error-code>
         <location>/error.jsp</location>
