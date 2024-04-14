@@ -16,8 +16,8 @@ public class SavingsAccount extends BankAccount{
     public SavingsAccount() {
     }
 
-    public SavingsAccount(String accountNumber, String accountHolderName, double balance) {
-        super(accountNumber, accountHolderName, balance, AccountType.SAVINGS_ACCOUNT);
+    public SavingsAccount(String accountNumber, String accountHolderName, double balance, User user) {
+        super(accountNumber, accountHolderName, balance, AccountType.SAVINGS_ACCOUNT,user);
     }
 
     public double getInterestRate() {
