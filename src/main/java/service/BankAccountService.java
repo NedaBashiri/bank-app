@@ -2,6 +2,7 @@ package service;
 
 import base.service.BaseService;
 import entity.BankAccount;
+import entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,4 +19,6 @@ public interface BankAccountService<T extends BankAccount> extends BaseService<T
     List<BankAccount> searchAccountsWithBalanceGreaterThan(double minBalance);
 
     Optional<BankAccount> findByAccountNumber(String accountNumber);
+
+    List<BankAccount> findAccountByUser(User user);
 }
