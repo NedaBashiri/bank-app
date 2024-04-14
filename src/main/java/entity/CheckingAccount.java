@@ -15,8 +15,8 @@ public class CheckingAccount extends BankAccount{
     public CheckingAccount() {
     }
 
-    public CheckingAccount(String accountNumber, String accountHolderName, double balance ) {
-        super(accountNumber, accountHolderName, balance, AccountType.CHECKING_ACCOUNT);
+    public CheckingAccount(String accountNumber, String accountHolderName, double balance, User user ) {
+        super(accountNumber, accountHolderName, balance, AccountType.CHECKING_ACCOUNT,user);
 
     }
 
