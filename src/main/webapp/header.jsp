@@ -29,8 +29,8 @@
             <%
             } else {
             %>
-            <li class="nav-item"><a href="Register.jsp" class="nav-link">Register</a></li>
-            <li class="nav-item"><a href="Login.jsp" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="/Register.jsp" class="nav-link">Register</a></li>
+            <li class="nav-item"><a href="/Login.jsp" class="nav-link">Login</a></li>
             <% } %>
         </ul>
     </div>
