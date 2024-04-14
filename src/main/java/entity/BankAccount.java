@@ -25,17 +25,21 @@ public abstract class BankAccount extends BaseEntity<Long> implements Serializab
     @Column(name = "type", insertable = false, updatable = false)
     private AccountType accountType;
 
+    @ManyToOne
+    private User user;
+
     public BankAccount() {
 
     }
 
-    public BankAccount(String accountNumber, String accountHolderName, double newBalance, AccountType accountType) {
+    public BankAccount(String accountNumber, String accountHolderName, double newBalance, AccountType accountType, User user) {
         this();
         ValidationAccount.validateNonNegativeAmount(newBalance);
         this.accountNumber = accountNumber;
         this.accountHolderName = accountHolderName;
         this.accountType = accountType;
         this.balance += newBalance;
+        this.user = user;
     }
 
     public Long getId() {
@@ -64,6 +68,14 @@ public abstract class BankAccount extends BaseEntity<Long> implements Serializab
 
     public AccountType getAccountType() {
         return accountType;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
